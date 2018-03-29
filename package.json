@@ -1,0 +1,45 @@
+{
+  "name": "restaurant-system-app",
+  "version": "0.0.1",
+  "author": "Felix Tellmann",
+  "description": "Restaurant System App - Focus on Menu Costing/Design, Beverage Costing, POS integration & reports, Reservations etc..",
+  "engines": {
+    "node": "9.10.0"
+  },
+  "scripts": {
+    "install": "(cd server && yarn) && (cd client_app && yarn) && (cd client_index && yarn)",
+    "ngrok": "./ngrok http 3000",
+    "heroku-postbuild": "yarn build",
+    "build": "concurrently  \"yarn build:server\" \"yarn build:client\"",
+    "build:server": "rimraf build && babel . --ignore node_modules,client,build --out-dir build",
+    "build:client": "cd client && (rimraf build && yarn build)",
+    "start": "concurrently \"yarn start:server\"",
+    "start:server": "nodemon -r dotenv/config -r babel-register server.js",
+    "start:prod": "node -r dotenv/config -r ./build/server.js",
+    "start:client": "cd client && yarn start",
+    "clean": "concurrently \"rimraf node_modules\" \"rimraf build\" \"rimraf client/node_modules\" \"rimraf client/build\" ",
+    "clean:build": "concurrently \"rimraf build\" \"rimraf client/build\" "
+  },
+  "dependencies": {
+    "babel-cli": "^6.26.0",
+    "babel-plugin-transform-runtime": "^6.23.0",
+    "babel-preset-env": "^1.6.1",
+    "babel-preset-stage-0": "^6.24.1",
+    "concurrently": "^3.5.1",
+    "cookie": "^0.3.1",
+    "cookie-session": "^2.0.0-beta.3",
+    "dotenv": "^5.0.1",
+    "express": "^4.16.3",
+    "mongoose": "^5.0.12",
+    "node-fetch": "^2.1.2",
+    "nonce": "^1.0.4",
+    "passport": "^0.4.0",
+    "passport-shopify": "^0.1.2",
+    "passport-strategy": "^1.0.0",
+    "rimraf": "^2.6.2"
+  },
+  "devDependencies": {
+    "babel-register": "^6.26.0",
+    "nodemon": "^1.17.2"
+  }
+}
